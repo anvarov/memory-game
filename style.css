@@ -1,0 +1,18 @@
+.grid-container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+  margin: 10px
+  
+}
+
+.material-icons {
+  grid-gap: 5px, 5px;
+  padding: 50px;
+  border: 1px;
+  border-style: solid
+}
+
+i:nth-child(n){
+  margin: 10px
+}
