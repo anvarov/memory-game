@@ -1,18 +1,45 @@
-.grid-container {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
-  margin: 10px
-  
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.deck {
+  width: 660px;
+  min-height: 680px;
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 3em;
+}
+.card {
+  height: 150px;
+  width: 150px;
+  background: #2e3d49;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
 .material-icons {
-  grid-gap: 5px, 5px;
   padding: 50px;
-  border: 1px;
-  border-style: solid
-}
-
-i:nth-child(n){
-  margin: 10px
+  visibility: hidden;
 }

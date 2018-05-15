@@ -1,3 +1,6 @@
+let pickedCard = undefined;
+let correctPick = true;
+let prevCard = undefined;
 // function to shuffle an array to make it random, found from
 //https://www.w3resource.com/javascript-exercises/javascript-array-exercise-17.php
 const shuffle = (arra1) => {
@@ -33,14 +36,32 @@ const boardGenerator = () => {
   }
 const addBoard = () => {
   boardGenerator()
-  let container = document.createElement('div')
+  let container = document.createElement('ul')
   for (let i = 0; i < 16; i++) {
-    let iElement = document.createElement('i')
-    iElement.setAttribute('class', 'material-icons')
-    iElement.setAttribute('id', i)
-    iElement.textContent = generatedBoard[i]
-    container.appendChild(iElement)
+    let listElement = document.createElement('li')
+    let iconElement = document.createElement('i')
+    iconElement.setAttribute('class', 'material-icons')
+    iconElement.textContent = generatedBoard[i]
+    listElement.setAttribute('class', 'card')
+    listElement.appendChild(iconElement)
+    listElement.addEventListener('click', pickCard)
+    container.appendChild(listElement)
   }
-  container.setAttribute('class', 'grid-container')
+  container.setAttribute('class', 'deck')
   document.getElementById('app').appendChild(container)
+}
+
+const pickCard = (e) => {
+  const selected = e.target.firstChild.innerHTML
+  if (!prevCard) { prevCard = e.target.firstChild }
+  if (prevCard.innerHTML === selected ){
+    e.target.firstChild.style.cssText = 'visibility: visible'
+    return
+  } else {
+    e.target.firstChild.style.cssText = 'visibility: visible'
+    prevCard.style.cssText = 'visibility: hidden'
+    e.target.firstChild.style.cssText = 'visibility: hidden'
+    prevCard = undefined
+    return
+  }
 }
