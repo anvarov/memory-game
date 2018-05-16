@@ -62,7 +62,6 @@ const pickCard = (e) => {
   if (pickedCardsArr.length === 2) {
     if (thisCard.innerHTML !== pickedCardsArr[0].innerHTML) {
       setTimeout(() => {
-        console.log('hi')
         thisCard.style.cssText = 'visibility: hidden';
         pickedCardsArr[0].style.cssText = 'visibilty: hidden';
         pickedCardsArr = []
@@ -71,7 +70,6 @@ const pickCard = (e) => {
     pickedCardsArr = []
   }
   
-  console.log('x')
 }
 
   
