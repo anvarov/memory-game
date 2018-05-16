@@ -66,27 +66,9 @@ const pickCard = (e) => {
         pickedCardsArr[0].style.cssText = 'visibilty: hidden';
         pickedCardsArr = []
       }, 500)
-  } else {
-    pickedCardsArr = []
+    } else {
+      pickedCardsArr = []
+    }
+
   }
-  
 }
-
-  
-
-
-    // if (counter === 3) { prevCard = undefined }
-    
-    // const selected = e.target.firstChild.innerHTML
-    // if (!prevCard) { prevCard = e.target.firstChild }
-    // if (prevCard.innerHTML === selected ){
-    //   e.target.firstChild.style.cssText = 'visibility: visible'
-    //   return
-    // } else if (prevCard.innerHTML !== selected && !correctPick){
-    //   prevCard.style.cssText = 'visibility: hidden'
-    //   e.target.firstChild.style.cssText = 'visibility: visible'
-    //   setTimeout(() => { e.target.firstChild.style.cssText = 'visibility: hidden' }, 1000)
-    //   prevCard = undefined
-    //   return
-    // }
-  }
