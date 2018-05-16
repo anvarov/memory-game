@@ -58,9 +58,10 @@ const pickCard = (e) => {
     e.target.firstChild.style.cssText = 'visibility: visible'
     return
   } else {
-    e.target.firstChild.style.cssText = 'visibility: visible'
+    
     prevCard.style.cssText = 'visibility: hidden'
-    e.target.firstChild.style.cssText = 'visibility: hidden'
+    e.target.firstChild.style.cssText = 'visibility: visible'
+    setTimeout(() => { e.target.firstChild.style.cssText = 'visibility: hidden' }, 1000)
     prevCard = undefined
     return
   }
