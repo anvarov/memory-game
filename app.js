@@ -1,6 +1,9 @@
-let pickedCard = undefined;
 let correctPick = true;
 let prevCard = undefined;
+let currentCard = undefined;
+let counter = 0;
+let pickedCardsArr = []
+
 // function to shuffle an array to make it random, found from
 //https://www.w3resource.com/javascript-exercises/javascript-array-exercise-17.php
 const shuffle = (arra1) => {
@@ -10,14 +13,14 @@ const shuffle = (arra1) => {
 
   // While there are elements in the array
   while (ctr > 0) {
-// Pick a random index
-      index = Math.floor(Math.random() * ctr);
-// Decrease ctr by 1
-      ctr--;
-// And swap the last element with it
-      temp = arra1[ctr];
-      arra1[ctr] = arra1[index];
-      arra1[index] = temp;
+    // Pick a random index
+    index = Math.floor(Math.random() * ctr);
+    // Decrease ctr by 1
+    ctr--;
+    // And swap the last element with it
+    temp = arra1[ctr];
+    arra1[ctr] = arra1[index];
+    arra1[index] = temp;
   }
   return arra1;
 }
@@ -31,9 +34,9 @@ let generatedBoard = []
 const boardGenerator = () => {
   const shuffledArr = shuffle(boardItems)
   for (let i = 0; i < 16; i++) {
-     generatedBoard[i] = shuffledArr[i]
-    }
+    generatedBoard[i] = shuffledArr[i]
   }
+}
 const addBoard = () => {
   boardGenerator()
   let container = document.createElement('ul')
@@ -52,17 +55,40 @@ const addBoard = () => {
 }
 
 const pickCard = (e) => {
-  const selected = e.target.firstChild.innerHTML
-  if (!prevCard) { prevCard = e.target.firstChild }
-  if (prevCard.innerHTML === selected ){
-    e.target.firstChild.style.cssText = 'visibility: visible'
-    return
+  thisCard = e.target.firstChild
+  thisCard.style.cssText = 'visibility: visible'
+  pickedCardsArr.push(thisCard)
+  console.log(pickedCardsArr)
+  if (pickedCardsArr.length === 2) {
+    if (thisCard.innerHTML !== pickedCardsArr[0].innerHTML) {
+      setTimeout(() => {
+        console.log('hi')
+        thisCard.style.cssText = 'visibility: hidden';
+        pickedCardsArr[0].style.cssText = 'visibilty: hidden';
+        pickedCardsArr = []
+      }, 500)
   } else {
-    
-    prevCard.style.cssText = 'visibility: hidden'
-    e.target.firstChild.style.cssText = 'visibility: visible'
-    setTimeout(() => { e.target.firstChild.style.cssText = 'visibility: hidden' }, 1000)
-    prevCard = undefined
-    return
+    pickedCardsArr = []
   }
+  
+  console.log('x')
 }
+
+  
+
+
+    // if (counter === 3) { prevCard = undefined }
+    
+    // const selected = e.target.firstChild.innerHTML
+    // if (!prevCard) { prevCard = e.target.firstChild }
+    // if (prevCard.innerHTML === selected ){
+    //   e.target.firstChild.style.cssText = 'visibility: visible'
+    //   return
+    // } else if (prevCard.innerHTML !== selected && !correctPick){
+    //   prevCard.style.cssText = 'visibility: hidden'
+    //   e.target.firstChild.style.cssText = 'visibility: visible'
+    //   setTimeout(() => { e.target.firstChild.style.cssText = 'visibility: hidden' }, 1000)
+    //   prevCard = undefined
+    //   return
+    // }
+  }
