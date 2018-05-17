@@ -1,6 +1,4 @@
-let correctPick = true;
 let prevCard = undefined;
-let counter = 0;
 let pickedCardsArr = []
 let thisCard = undefined
 
