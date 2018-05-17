@@ -1,8 +1,8 @@
 let correctPick = true;
 let prevCard = undefined;
-let currentCard = undefined;
 let counter = 0;
 let pickedCardsArr = []
+let thisCard = undefined
 
 // function to shuffle an array to make it random, found from
 //https://www.w3resource.com/javascript-exercises/javascript-array-exercise-17.php
@@ -57,18 +57,22 @@ const addBoard = () => {
 const pickCard = (e) => {
   thisCard = e.target.firstChild
   thisCard.style.cssText = 'visibility: visible'
-  pickedCardsArr.push(thisCard)
-  console.log(pickedCardsArr)
+  pickedCardsArr.push(e.target)
   if (pickedCardsArr.length === 2) {
-    if (thisCard.innerHTML !== pickedCardsArr[0].innerHTML) {
+    e.target.classList.remove('animated', 'shake', 'pulse')
+    pickedCardsArr[0].classList.remove('animated', 'shake', 'pulse')
+    if (thisCard.innerHTML !== pickedCardsArr[0].firstChild.innerHTML) {
       setTimeout(() => {
+        e.target.classList.add('animated', 'shake')
         thisCard.style.cssText = 'visibility: hidden';
-        pickedCardsArr[0].style.cssText = 'visibilty: hidden';
+        pickedCardsArr[0].classList.add('animated', 'shake')
+        pickedCardsArr[0].firstChild.style.cssText = 'visibilty: hidden';
         pickedCardsArr = []
       }, 500)
     } else {
+      e.target.classList.add('animated', 'pulse');
+      pickedCardsArr[0].classList.add('animated', 'pulse')
       pickedCardsArr = []
     }
-
   }
 }

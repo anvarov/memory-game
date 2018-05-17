@@ -297,6 +297,7 @@
 .shake {
   -webkit-animation-name: shake;
   animation-name: shake;
+  transition: 11;
 }
 
 @-webkit-keyframes headShake {
