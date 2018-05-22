@@ -10,8 +10,20 @@
   <title>Memory Game</title>
 </head>
 <body>
+  <form onsubmit="addBoard(this.form); return false">
+    <input name="difficulty" type="radio" id="easy" value="easy">
+    <label for="easy">Easy</label>
+    <input name="difficulty" type="radio" id="medium" value="medium" checked>
+    <label for="medium">Medium</label>
+    <input name="difficulty" type="radio" id="hard" value="hard">
+    <label for="hard">Hard</label>
+    <button type="submit">Generate a new board</button>
+  </form>
+  <div id='stats'>
+    <p id='moves'>Moves</p>
+    <p id='time-elapsed'>Time elapsed</p>
+  </div>
   <div id='app'></div>
-  <button onclick='addBoard()'>Generate Board</button>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="js/app.js"></script>
 </body>

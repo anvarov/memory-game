@@ -2,17 +2,11 @@ let prevCard = undefined;
 let pickedCardsArr = []
 let thisCard = undefined
 let time = 500
-
-switch(difficulty) {
-  case 'easy':
-    time = 1500
-  case 'medium':
-    time = 1000
-  case 'hard':
-    time = 500
-  default:
-    time = 1000
-}
+const boardItems = ['build', 'build', 'alarm', 'alarm', 'copyright', 'copyright', 'pan_tool', 'pan_tool', 'verified_user', 'verified_user', 'track_changes', 'track_changes', 'stars', 'stars', 'search', 'search']
+let stars = 3
+let moves = 0
+let generatedBoard = []
+let completed = 0
 
 // function to shuffle an array to make it random, found from
 //https://www.w3resource.com/javascript-exercises/javascript-array-exercise-17.php
@@ -35,12 +29,6 @@ const shuffle = (arra1) => {
   return arra1;
 }
 
-const boardItems = ['build', 'build', 'alarm', 'alarm', 'copyright', 'copyright', 'pan_tool', 'pan_tool', 'verified_user', 'verified_user', 'track_changes', 'track_changes', 'stars', 'stars', 'search', 'search']
-let stars = 3
-let moves = 0
-let time = 0
-let generatedBoard = []
-
 const boardGenerator = () => {
   const shuffledArr = shuffle(boardItems)
   for (let i = 0; i < 16; i++) {
@@ -48,6 +36,21 @@ const boardGenerator = () => {
   }
 }
 const addBoard = () => {
+  if (document.querySelector('ul.deck')){
+    const result = confirm('do you want to start a new game?')
+    if (result) {
+      document.querySelector('ul.deck').remove()
+    } else {
+      return
+    }
+  }
+  if (document.getElementById('easy').checked) {
+    time = 1500
+  } else if (document.getElementById('medium').checked){
+    time = 1000
+  } else {
+    time = 500
+  }
   boardGenerator()
   let container = document.createElement('ul')
   for (let i = 0; i < 16; i++) {
@@ -74,8 +77,6 @@ const pickCard = (e) => {
   if (pickedCardsArr.length === 2) {
     moves++
     e.target.classList.add('animated', 'flipInY')
-    // e.target.classList.remove('animated', 'shake', 'pulse', 'flipInY')
-    // pickedCardsArr[0].classList.remove('animated', 'shake', 'pulse', 'flipInY')
     if (thisCard.innerHTML !== pickedCardsArr[0].firstChild.innerHTML) {
       setTimeout(() => {
         e.target.classList.remove('animated', 'shake', 'pulse', 'flipInY')
@@ -87,6 +88,12 @@ const pickCard = (e) => {
         pickedCardsArr = []
       }, time)
     } else {
+      completed++
+      if (completed === 8){
+        alert(`congratulations you did it in ${moves} moves`)
+        document.querySelector('ul.deck').remove()
+        return
+      }
       e.target.classList.remove('animated', 'shake', 'pulse', 'flipInY')
       pickedCardsArr[0].classList.remove('animated', 'shake', 'pulse', 'flipInY')
       e.target.classList.add('animated', 'pulse');
@@ -94,4 +101,5 @@ const pickCard = (e) => {
       pickedCardsArr = []
     }
   }
+  document.getElementById('moves').innerText = `Moves ${moves}`
 }
