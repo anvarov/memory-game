@@ -73,9 +73,9 @@ const insertStars = () => {
 // function for inserting to html generated board items
 const insertBoardItems = () => {
   insertStars()
-  let container = document.createElement('ul')
+  let container = document.createElement('div')
   for (let i = 0; i < 16; i++) {
-    let listElement = document.createElement('li')
+    let listElement = document.createElement('div')
     let iconElement = document.createElement('i')
     iconElement.setAttribute('class', 'material-icons')
     iconElement.textContent = generatedBoard[i]
@@ -91,13 +91,13 @@ const insertBoardItems = () => {
 //function for decreasing rating
 const deleteStar = () => {
   let starElement = document.getElementById('rating').firstChild
-  if (wrongPickCount > 3 && stars === 3) {
+  if (wrongPickCount > 7 && stars === 3) {
     document.getElementById('rating').removeChild(starElement)
     stars = 2
-  } else if (wrongPickCount > 5 && stars === 2) {
+  } else if (wrongPickCount > 15 && stars === 2) {
     document.getElementById('rating').removeChild(starElement)
     stars = 1
-  } else if (wrongPickCount > 7 && stars === 1) {
+  } else if (wrongPickCount > 20 && stars === 1) {
     document.getElementById('rating').removeChild(starElement)
     stars = 0
   }
@@ -105,13 +105,13 @@ const deleteStar = () => {
 
 //shuffling and adding the board to html
 const addBoard = () => {
-  if (!document.querySelector('ul.deck')) {
+  if (!document.querySelector('div.deck')) {
     (() => {
       // starting the timer
       timer = window.setInterval(timerFunc, 1000)
     })()
   }
-  if (document.querySelector('ul.deck')) {
+  if (document.querySelector('div.deck')) {
     const result = confirm('do you want to start a new game?')
     if (result) {
       //resetting stars
@@ -126,7 +126,7 @@ const addBoard = () => {
       })()
       //resetting pickedCardArr to initial state
       pickedCardsArr = []
-      document.querySelector('ul.deck').remove()
+      document.querySelector('div.deck').remove()
       moves = 0;
       seconds = 0;
       stars = 3;
@@ -182,13 +182,16 @@ const pickCard = (e) => {
     } else {
       completed++
       if (completed === 8) {
-        alert(`congratulations you did it in ${moves} moves and ${seconds}. Your rating is ${stars}`)
-        document.querySelector('ul.deck').remove()
+        alert(`congratulations you did it in ${moves} moves and ${seconds} seconds. Your rating is ${stars}`);
           (() => {
             //removing the timer
             window.clearInterval(timer)
           })();
         pickedCardsArr = []
+        moves = 0;
+        document.getElementById('moves').innerText = 'Moves: 0'
+        document.getElementById('time-elapsed').innerHTML = 'Time elapsed: 0'
+        document.querySelector('div.deck').remove()
         return
       }
       e.target.classList.remove('animated', 'shake', 'pulse', 'flipInY')
