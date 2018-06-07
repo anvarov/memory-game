@@ -106,26 +106,26 @@ footer {
   text-align: center
 }
 
-@media only screen and (max-width: 470px) {
-  .deck {
-    width: 120px;
-    min-height: 140px;
-  }
-  .card {
-    height: 150px;
-    width: 150px;
-    margin-bottom: 5px
-  }
-}
-
 @media only screen and (max-width: 770px) and (min-width: 480px) {
   .deck {
-    width: 360px;
+    width: 430px;
     min-height: 380px;
   }
   .card {
-    height: 170px;
-    width: 170px;
+    height: 100px;
+    width: 100px;
     margin-bottom: 10px
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .deck {
+    width: 200px;
+    min-height: 140px;
+  }
+  .card {
+    height: 45px;
+    width: 45px;
+    margin-bottom: 3px
   }
 }

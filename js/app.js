@@ -91,15 +91,12 @@ const insertBoardItems = () => {
 //function for decreasing rating
 const deleteStar = () => {
   let starElement = document.getElementById('rating').firstChild
-  if (wrongPickCount > 7 && stars === 3) {
+  if (wrongPickCount > 10 && stars === 3) {
     document.getElementById('rating').removeChild(starElement)
     stars = 2
   } else if (wrongPickCount > 15 && stars === 2) {
     document.getElementById('rating').removeChild(starElement)
     stars = 1
-  } else if (wrongPickCount > 20 && stars === 1) {
-    document.getElementById('rating').removeChild(starElement)
-    stars = 0
   }
 }
 
@@ -120,16 +117,17 @@ const addBoard = () => {
         //removing the timer
         window.clearInterval(timer)
       })();
+      seconds = 0;
       (() => {
         // starting the timer
         timer = window.setInterval(timerFunc, 1000)
-      })()
+      })();
       //resetting pickedCardArr to initial state
       pickedCardsArr = []
       document.querySelector('div.deck').remove()
       moves = 0;
-      seconds = 0;
       stars = 3;
+      completed = 0;
       document.getElementById('moves').innerText = 'Moves: 0'
       document.getElementById('time-elapsed').innerHTML = 'Time elapsed: 0';
     } else {
@@ -181,17 +179,38 @@ const pickCard = (e) => {
       }, time)
     } else {
       completed++
-      if (completed === 8) {
-        alert(`congratulations you did it in ${moves} moves and ${seconds} seconds. Your rating is ${stars}`);
+      if (completed === 1) {
+        let starWord;
+        (() => {
+          //removing the timer
+          window.clearInterval(timer)
+        })();
+        if (stars === 1) {
+          starWord = 'star'
+        } else {
+          starWord = 'stars'
+        }
+        const result = confirm(`congratulations you did it in ${moves} moves and ${seconds} seconds. Your rating is ${stars} ${starWord}.`);
+        pickedCardsArr = []
+        moves = 0;
+        completed = 0;
+        seconds = 0;
+        document.getElementById('moves').innerText = 'Moves: 0'
+        document.getElementById('time-elapsed').innerHTML = 'Time elapsed: 0'
+        document.querySelector('div.deck').remove();
+        document.getElementById('rating').innerHTML = '';
+        if (result) {
           (() => {
             //removing the timer
             window.clearInterval(timer)
           })();
-        pickedCardsArr = []
-        moves = 0;
-        document.getElementById('moves').innerText = 'Moves: 0'
-        document.getElementById('time-elapsed').innerHTML = 'Time elapsed: 0'
-        document.querySelector('div.deck').remove()
+          addBoard()
+        } else {
+          (() => {
+            //removing the timer
+            window.clearInterval(timer)
+          })();
+        }
         return
       }
       e.target.classList.remove('animated', 'shake', 'pulse', 'flipInY')
