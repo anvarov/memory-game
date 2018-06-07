@@ -155,6 +155,9 @@ const pickCard = (e) => {
   if (e.target.firstChild.style === undefined) {
     return
   }
+  if (e.target.classList.contains('flipInY')) {
+    return
+  }
   if (pickedCardsArr.length === 2) {
     return
   }
@@ -164,6 +167,7 @@ const pickCard = (e) => {
   pickedCardsArr.push(e.target)
   if (pickedCardsArr.length === 2) {
     moves++
+    document.getElementById('moves').innerText = `Moves: ${moves}`
     e.target.classList.add('animated', 'flipInY')
     if (thisCard.innerHTML !== pickedCardsArr[0].firstChild.innerHTML) {
       wrongPickCount++
@@ -176,10 +180,11 @@ const pickCard = (e) => {
         pickedCardsArr[0].classList.add('animated', 'shake')
         pickedCardsArr[0].firstChild.style.cssText = 'visibilty: hidden';
         pickedCardsArr = []
-      }, time)
+      }, time);
     } else {
       completed++
-      if (completed === 1) {
+      document.getElementById('moves').innerText = `Moves: ${moves}`
+      if (completed === 8) {
         let starWord;
         (() => {
           //removing the timer
@@ -190,7 +195,8 @@ const pickCard = (e) => {
         } else {
           starWord = 'stars'
         }
-        const result = confirm(`congratulations you did it in ${moves} moves and ${seconds} seconds. Your rating is ${stars} ${starWord}.`);
+        const result = confirm(`congratulations you did it in ${moves} moves and ${seconds} seconds. Your rating is ${stars} ${starWord}. \n
+        Press 'OK' to start a new game or press 'Cancel' to exit`);
         pickedCardsArr = []
         moves = 0;
         completed = 0;
@@ -220,5 +226,4 @@ const pickCard = (e) => {
       pickedCardsArr = []
     }
   }
-  document.getElementById('moves').innerText = `Moves: ${moves}`
 }
